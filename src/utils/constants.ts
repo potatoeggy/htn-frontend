@@ -6,7 +6,7 @@ export const PASSWORD = "password";
 export const EVENT_TYPE_MAP = {
   workshop: {
     name: "Workshop",
-    color: "#FFC107",
+    color: "#EEC107",
   },
   activity: {
     name: "Activity",

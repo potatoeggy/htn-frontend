@@ -11,7 +11,7 @@ const props = defineProps<{
   expanded?: boolean;
   relatedEvents: TEvent[];
 }>();
-const emit = defineEmits(["toggleExpanded"]);
+const emit = defineEmits(["toggleExpanded", "selectExpanded"]);
 
 const startTime = dayjs(props.event.start_time);
 const endTime = dayjs(props.event.end_time);
@@ -27,21 +27,28 @@ const toggleExpanded = () => {
   emit("toggleExpanded");
 };
 
-// expanded:
-// - related events
+const selectExpanded = (id: number) => {
+  emit("selectExpanded", id);
+};
+
+const log = () => console.log("wtf");
 </script>
 
 <template>
   <section
     @click="toggleExpanded"
-    class="p-4 bg-slate-100 shadow-md shadow-gray-400 rounded-lg hover:cursor-pointer md:max-w-[50rem]"
+    :class="[
+      'p-4 shadow-md shadow-gray-400 rounded-lg hover:cursor-pointer md:max-w-[48rem] transition-colors dark:shadow-gray-600 text-gray-800 dark:text-gray-200',
+      expanded ? 'bg-white dark:bg-[#111]' : 'bg-[#f9f9f9] dark:bg-gray-900',
+    ]"
     :id="`event-${event.id}`"
   >
     <div class="flex gap-2 justify-between">
       <h2 class="text-2xl text-pretty font-bold">{{ event.name }}</h2>
-      <span class="event-type-pill px-2 py-1 text-white font-bold rounded-xl">{{
-        eventType.name
-      }}</span>
+      <span
+        class="event-type-pill px-2 py-1 text-white font-bold rounded-lg text-base"
+        >{{ eventType.name }}</span
+      >
     </div>
     <p v-if="endDateIsSame">
       {{ startTime.format("H:mm A") }} –
@@ -59,40 +66,45 @@ const toggleExpanded = () => {
 
     <p
       :class="[
-        'ellipsis text-ellipsis transition-all',
+        'ellipsis text-ellipsis transition-all text-base text-gray-500 dark:text-gray-400',
         { 'line-clamp-4': !expanded },
       ]"
     >
       {{ event.description }}
     </p>
-    <template v-if="expanded">
-      <a
-        @click.stop
-        :href="eventUrl"
-        target="_blank"
-        class="text-white bg-cyan-500 font-bold px-2 py-1 mt-2 rounded-lg w-full text-lg text-pretty flex items-center justify-center shadow-md shadow-gray-400 transition-all hover:shadow-none active:shadow-none active:brightness-75"
-      >
-        Join this event!
-      </a>
-      <br />
-      <hr />
-      <p class="mt-2">
-        <strong>See also:</strong>
-      </p>
-      <ul class="list-inside">
-        <li
-          class="list-disc"
-          v-for="relatedEvent in relatedEvents"
-          :key="relatedEvent.id"
+    <Transition name="slide">
+      <div v-if="expanded" class="h-auto relative overflow-hidden slide">
+        <a
+          @click.stop
+          :href="eventUrl"
+          target="_blank"
+          class="text-white bg-cyan-500 font-bold px-2 py-1 mt-2 rounded-lg w-full text-lg text-pretty flex items-center justify-center shadow-md shadow-gray-400 dark:shadow-gray-600 transition-all hover:shadow-none active:shadow-none active:brightness-75"
         >
-          <a
-            class="underline text-blue-400"
-            :href="`#event-${relatedEvent.id}`"
-            >{{ relatedEvent.name }}</a
-          >
-        </li>
-      </ul>
-    </template>
+          Join this event!
+        </a>
+        <template v-if="relatedEvents.length > 0">
+          <hr />
+          <p class="mt-2">
+            <strong>See also:</strong>
+          </p>
+          <ul class="list-inside">
+            <li
+              class="list-disc"
+              v-for="relatedEvent in relatedEvents"
+              :key="relatedEvent.id"
+            >
+              <a
+                class="underline text-blue-400"
+                :href="`#event-${relatedEvent.id}`"
+                @click.stop="selectExpanded(relatedEvent.id)"
+              >
+                {{ relatedEvent.name }}
+              </a>
+            </li>
+          </ul>
+        </template>
+      </div>
+    </Transition>
   </section>
 </template>
 
@@ -103,5 +115,22 @@ span.event-type-pill {
 
 hr {
   @apply border my-2;
+}
+
+@media (prefers-color-scheme: dark) {
+  hr {
+    @apply border-gray-700;
+  }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: height 0.2s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  height: 0;
+  overflow: hidden;
 }
 </style>
