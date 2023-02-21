@@ -13,18 +13,18 @@ const store = useStore();
     </a>
   </header>
   <main class="p-8 px-10 flex flex-col items-center">
-    <div class="md:max-w-[50rem] w-full">
+    <div class="md:max-w-[48rem] w-full">
       <h1 class="text-5xl dark:text-gray-200 text-gray-700">Events</h1>
-      <p
-        class="text-lg mt-2 text-gray-500 dark:text-gray-400"
-        v-if="store.activeUser"
-      >
-        Welcome back, {{ store.activeUser.name }}!
-      </p>
-      <p class="text-lg mt-2 text-gray-500 dark:text-gray-400" v-else>
-        You are not logged in. To see all events,
-        <a class="underline text-blue-400" href="/login">log in here</a>.
-      </p>
+      <div class="text-lg mt-2 text-gray-500 dark:text-gray-400">
+        <p v-if="store.activeUser">
+          Welcome back, {{ store.activeUser.name }}!
+        </p>
+        <p v-else>
+          You are not logged in. To see all events,
+          <a class="underline text-blue-400" href="/login">log in here</a>.
+        </p>
+        <p>Press an event to see more details about it.</p>
+      </div>
     </div>
     <Suspense>
       <EventTable />

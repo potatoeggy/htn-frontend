@@ -39,7 +39,7 @@ const inputClasses = computed(() =>
 
 <template>
   <main
-    class="p-8 px-10 flex flex-col items-center gap-2 h-full justify-center overflow-scroll"
+    class="p-8 px-10 flex flex-col items-center gap-2 min-h-[100vh] justify-center overflow-scroll"
   >
     <img
       src="@/assets/logo.svg"
@@ -47,8 +47,8 @@ const inputClasses = computed(() =>
       class="w-16 brightness-[20%] dark:brightness-100"
     />
     <h1 class="text-5xl dark:text-gray-200">Welcome back!</h1>
-    <p class="text-pretty text-lg font-normal w-[28rem]">
-      Create something amazing and show it off to the world in Hack the Borf,
+    <p class="text-pretty text-center text-lg font-normal w-[28rem]">
+      Create something amazing and show it off to the world at Hack the Borf,
       Borfland's largest hackathon.
     </p>
     <div class="mt-5">

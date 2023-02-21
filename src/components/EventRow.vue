@@ -39,7 +39,9 @@ const log = () => console.log("wtf");
     @click="toggleExpanded"
     :class="[
       'p-4 shadow-md shadow-gray-400 rounded-lg hover:cursor-pointer md:max-w-[48rem] transition-colors dark:shadow-gray-600 text-gray-800 dark:text-gray-200',
-      expanded ? 'bg-white dark:bg-[#111]' : 'bg-[#f9f9f9] dark:bg-gray-900',
+      expanded
+        ? 'bg-white dark:bg-[#111]'
+        : 'bg-[#f9f9f9] dark:bg-gray-900 IGNOREpb-1',
     ]"
     :id="`event-${event.id}`"
   >
@@ -71,6 +73,12 @@ const log = () => console.log("wtf");
       ]"
     >
       {{ event.description }}
+    </p>
+    <p
+      v-if="!expanded && false"
+      class="w-full text-center text-sm pt-1 text-gray-300"
+    >
+      ↓ Press for more information… ↓
     </p>
     <Transition name="slide">
       <div v-if="expanded" class="h-auto relative overflow-hidden slide">
