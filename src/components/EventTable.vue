@@ -46,7 +46,7 @@ const toggleTag = (tag: string) => {
 <template>
   <div class="flex flex-col py-4 gap-4 items-center w-full max-w-[48rem]">
     <div
-      class="flex p-2 bg-slate-600 text-gray-200 rounded-lg font-bold justify-between flex-wrap w-full"
+      class="flex p-2 bg-slate-600 text-gray-200 rounded-lg font-bold justify-between flex-wrap w-full gap-y-3"
     >
       <div class="flex gap-2 items-center">
         <p>Restrict to:</p>

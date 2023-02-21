@@ -46,7 +46,9 @@ const log = () => console.log("wtf");
     :id="`event-${event.id}`"
   >
     <div class="flex gap-2 justify-between">
-      <h2 class="text-2xl text-pretty font-bold">{{ event.name }}</h2>
+      <h2 class="text-2xl text-pretty font-bold max-w-[70%]">
+        {{ event.name }}
+      </h2>
       <span
         class="event-type-pill px-2 py-1 text-white font-bold rounded-lg text-base"
         >{{ eventType.name }}</span
@@ -119,6 +121,7 @@ const log = () => console.log("wtf");
 <style scoped>
 span.event-type-pill {
   background-color: v-bind(eventTypeColor);
+  max-height: 2rem;
 }
 
 hr {
