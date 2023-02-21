@@ -12,7 +12,7 @@ const store = useStore();
       <h1 class="text-2xl text-white">Hack the Borf</h1>
     </a>
   </header>
-  <main class="p-8 px-10 flex flex-col items-center">
+  <main class="sm:p-8 p-4 sm:px-10 px-4 flex flex-col items-center">
     <div class="md:max-w-[48rem] w-full">
       <h1 class="text-5xl dark:text-gray-200 text-gray-700">Events</h1>
       <div class="text-lg mt-2 text-gray-500 dark:text-gray-400">
