@@ -12,15 +12,17 @@ const store = useStore();
       <h1 class="text-2xl text-white">Hack the Borf</h1>
     </a>
   </header>
-  <main class="p-8 px-10">
-    <h1 class="text-5xl">Events</h1>
-    <p class="text-lg mt-2" v-if="store.activeUser">
-      Welcome back, {{ store.activeUser.name }}!
-    </p>
-    <p class="text-lg mt-2" v-else>
-      You are not logged in. To see all events,
-      <a class="underline text-blue-400" href="/login">log in here</a>.
-    </p>
+  <main class="p-8 px-10 flex flex-col items-center">
+    <div class="md:max-w-[50rem] w-full">
+      <h1 class="text-5xl">Events</h1>
+      <p class="text-lg mt-2" v-if="store.activeUser">
+        Welcome back, {{ store.activeUser.name }}!
+      </p>
+      <p class="text-lg mt-2" v-else>
+        You are not logged in. To see all events,
+        <a class="underline text-blue-400" href="/login">log in here</a>.
+      </p>
+    </div>
     <Suspense>
       <EventTable />
     </Suspense>

@@ -20,12 +20,15 @@ const toggleExpandedEvent = (id: number) => {
 </script>
 
 <template>
-  <div class="flex flex-col py-4 gap-4">
+  <div class="flex flex-col py-4 gap-4 items-center">
     <EventRow
       v-for="(event, i) in allowedEvents"
       :expanded="expandedEventId === i"
       :event="event"
       :key="i"
+      :related-events="
+        allowedEvents.filter((e) => event.related_events.includes(e.id)) // mildly hacky design flaw
+      "
       @toggle-expanded="toggleExpandedEvent(i)"
     />
   </div>
